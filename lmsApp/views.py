@@ -8,7 +8,7 @@ from lmsApp import models, forms
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
+
 
 def context_data(request):
     fullpath = request.get_full_path()
@@ -34,7 +34,7 @@ def userregister(request):
         return redirect("home-page")
     return render(request, 'register.html', context)
 
-@csrf_exempt
+
 def save_register(request):
     resp={'status':'failed', 'msg':''}
     if not request.method == 'POST':
@@ -55,7 +55,6 @@ def save_register(request):
     return HttpResponse(json.dumps(resp), content_type="application/json")
 
 @login_required
-@csrf_exempt
 def update_profile(request):
     context = context_data(request)
     context['page_title'] = 'Update Profile'
@@ -76,7 +75,6 @@ def update_profile(request):
     return render(request, 'manage_profile.html',context)
 
 @login_required
-@csrf_exempt
 def update_password(request):
     context =context_data(request)
     context['page_title'] = "Update Password"
@@ -103,7 +101,6 @@ def login_page(request):
     context['page_title'] = 'Login'
     return render(request, 'login.html', context)
 
-@csrf_exempt
 def login_user(request):
     logout(request)
     resp = {"status":'failed','msg':''}
@@ -124,7 +121,6 @@ def login_user(request):
             resp['msg'] = "Incorrect username or password"
     return HttpResponse(json.dumps(resp),content_type='application/json')
 
-@login_required
 def home(request):
     context = context_data(request)
     context['page'] = 'home'
@@ -159,7 +155,6 @@ def users(request):
     return render(request, 'users.html', context)
 
 @login_required
-@csrf_exempt
 def save_user(request):
     resp = { 'status': 'failed', 'msg' : '' }
     if request.method == 'POST':
@@ -224,7 +219,6 @@ def category(request):
     return render(request, 'category.html', context)
 
 @login_required
-@csrf_exempt
 def save_category(request):
     resp = { 'status': 'failed', 'msg' : '' }
     if request.method == 'POST':
@@ -301,7 +295,6 @@ def sub_category(request):
     return render(request, 'sub_category.html', context)
 
 @login_required
-@csrf_exempt
 def save_sub_category(request):
     resp = { 'status': 'failed', 'msg' : '' }
     if request.method == 'POST':
@@ -378,7 +371,6 @@ def books(request):
     return render(request, 'books.html', context)
 
 @login_required
-@csrf_exempt
 def save_book(request):
     resp = { 'status': 'failed', 'msg' : '' }
     if request.method == 'POST':
@@ -455,7 +447,6 @@ def students(request):
     return render(request, 'students.html', context)
 
 @login_required
-@csrf_exempt
 def save_student(request):
     resp = { 'status': 'failed', 'msg' : '' }
     if request.method == 'POST':
@@ -532,7 +523,6 @@ def borrows(request):
     return render(request, 'borrows.html', context)
 
 @login_required
-@csrf_exempt
 def save_borrow(request):
     resp = { 'status': 'failed', 'msg' : '' }
     if request.method == 'POST':
