@@ -1,2 +1,4 @@
 Django==4.0.3
 Pillow
+decorator==5.1.1
+whitenoise==6.0.0
